@@ -14,13 +14,14 @@
             <h2><?php echo $title?></h2>
         <div class=" col-md-6">
             <form action="?route=luupro" method="post">
+                <input type="hidden" name="id" value="<?php echo $pro["id"]  ?>">
                 <div class="form-group">
                     <lable><h4>Tên sản phẩm:</h4></lable>
-                    <input type="text" class="form-control" placeholder="Tên..." name="name" value="<?php echo $pro["id"] ?>">
+                    <input type="text" class="form-control" placeholder="Tên..." name="name" value="<?php echo $pro["name"] ?>">
                 </div>
                 <div class="form-group">
                     <lable><h4>Mô tả:</h4></lable>
-                    <textarea type="text" class="form-control" placeholder="Mô tả..." name="mota" value="<?php echo $pro["mota"] ?>"></textarea>
+                    <input type="text" class="form-control" placeholder="Mô tả..." name="mota" value="<?php echo $pro["mota"] ?>">
                 </div>
                 <div class="form-group">
                     <lable><h4>Giá sản phẩm:</h4></lable>

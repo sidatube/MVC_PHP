@@ -33,7 +33,7 @@
                         <td><?php echo $sp["gia"] ?></td>
                         <td><?php echo $sp["ncc"] ?></td>
                         <td>
-                            <form action="" method="post">
+                            <form action="?route=addpro" method="post">
                                 <input type="hidden" name="id" value="<?php echo $sp["id"]  ?>">
                                 <button type="submit" class="btn btn-primary">Sửa</button>
                             </form>
@@ -42,15 +42,12 @@
                             <form action="?route=delete" method="post">
                                 <input type="hidden" name="id" value="<?php echo $sp["id"]  ?>">
                                 <button type="submit" class="btn btn-success">Xóa</button>
-
                             </form>
-
                         </td>
                         <td>
                             <form action="" method="post">
                                 <input type="hidden" name="id" value="<?php echo $sp["id"]  ?>">
                                 <button type="submit" class="btn btn-warning">Cart+</button>
-
                             </form>
                         </td>
                     </tr>
