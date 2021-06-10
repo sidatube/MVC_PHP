@@ -16,7 +16,7 @@
             <form action="#" method="post">
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Category</span>
-                    <input type="text" class="form-control" name="name" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                    <input type="text" class="form-control" name="name" placeholder="Category..." aria-label="Username" aria-describedby="basic-addon1">
                 </div>
             </form>
         </div>

@@ -15,6 +15,10 @@
             <button type="button" class="float-end btn btn-primary">Thêm mới</button>
         </a>
 
+        <a href="?route=mycart">
+            <button type="button" class="float-end btn btn-warning me-5">Giỏ hàng</button>
+        </a>
+
         <table class="table table-striped">
             <thead>
                 <th>id</th>
@@ -30,7 +34,7 @@
                         <td><?php echo $sp["id"]  ?></td>
                         <td><?php echo $sp["name"] ?></td>
                         <td colspan="2"><?php echo $sp["mota"] ?></td>
-                        <td><?php echo $sp["gia"] ?></td>
+                        <td><?php echo $sp["gia"]." VND" ?></td>
                         <td><?php echo $sp["ncc"] ?></td>
                         <td>
                             <form action="?route=addpro" method="post">
@@ -45,7 +49,7 @@
                             </form>
                         </td>
                         <td>
-                            <form action="" method="post">
+                            <form action="?route=addtocart" method="post">
                                 <input type="hidden" name="id" value="<?php echo $sp["id"]  ?>">
                                 <button type="submit" class="btn btn-warning">Cart+</button>
                             </form>
@@ -55,6 +59,9 @@
             </tbody>
         </table>
         <h2 style="margin-top:50px ">Category</h2>
+        <a href="?route=addcate">
+            <button type="button" class="float-end btn btn-primary">Thêm mới</button>
+        </a>
         <?php foreach ($cate as $c):?>
         <div class="form-check">
             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault<?php echo $c["id"] ?>">
