@@ -1,5 +1,6 @@
 <?php
-include_once "database.php";
+//include_once "database.php";
+include_once "models/Products.php";
 session_start();
 if (!isset($_SESSION["Cart"])){
     $_SESSION["Cart"]=[];
@@ -11,6 +12,13 @@ function checkcart($sp,$cart){
         }
     }
     return false;
+}
+function checkid($id,$dssp){
+    foreach ($dssp as $item){
+        if ($item["id"]== $id){
+            return true;
+        }
+    }return false;
 }
     class Controller{
 
@@ -99,38 +107,52 @@ function checkcart($sp,$cart){
 
 
         function home(){
-            $sql_txt = "select * from products";
-            $dssp= queryDB($sql_txt);
+            $pro = new Products();
+            $dssp = $pro->all();
             $sql_cate= "select * from procategory";
             $cate = queryDB($sql_cate);
             include "views/home.php";
         }
         function save(){
-            if ( $id=$_POST["id"]==""){
-                $name=$_POST["name"];
-                $mota=$_POST["mota"];
-                $gia=$_POST["gia"];
-                $ncc=$_POST["ncc"];
-                $sql="insert into products (name,mota,gia,ncc) values ('$name','$mota','$gia','$ncc')";
-                if (insertorupdateDB($sql)){
+            $id = $_POST["id"];
+            $product = new Products();
+            if (checkid($id,$product)){
+                if ($product->update($_POST,$id)){
                     header("location: /MVC/Lap");
                 }else{
-                    echo "error";
+                    echo "error-edit";
                 }
-
             }else{
-                $id=$_POST["id"];
-                $name=$_POST["name"];
-                $mota=$_POST["mota"];
-                $gia=$_POST["gia"];
-                $ncc=$_POST["ncc"];
-                $sql_txt= "update products set name ='$name', gia=$gia, mota='$mota', ncc='$ncc' where id=$id";
-                if (insertorupdateDB($sql_txt)){
+                if ($product->save($_POST)){
                     header("location: /MVC/Lap");
                 }else{
-                    echo "error";
+                    echo "error-add";
                 }
             }
+//            if ( $id=$_POST["id"]==""){
+//                $name=$_POST["name"];
+//                $mota=$_POST["mota"];
+//                $gia=$_POST["gia"];
+//                $ncc=$_POST["ncc"];
+//                $sql="insert into products (name,mota,gia,ncc) values ('$name','$mota','$gia','$ncc')";
+//                if (insertorupdateDB($sql)){
+//                    header("location: /MVC/Lap");
+//                }else{
+//                    echo "error";
+//                }
+//            }else{
+//                $id=$_POST["id"];
+//                $name=$_POST["name"];
+//                $mota=$_POST["mota"];
+//                $gia=$_POST["gia"];
+//                $ncc=$_POST["ncc"];
+//                $sql_txt= "update products set name ='$name', gia=$gia, mota='$mota', ncc='$ncc' where id=$id";
+//                if (insertorupdateDB($sql_txt)){
+//                    header("location: /MVC/Lap");
+//                }else{
+//                    echo "error";
+//                }
+//            }
 
 
         }
@@ -146,30 +168,23 @@ function checkcart($sp,$cart){
                 include "views/addProduct.php";
             }else{
                 $id=$_POST["id"];
-                $sql_txt = "select * from products";
-                $dssp= queryDB($sql_txt);
-                foreach ($dssp as $item){
-                    if ($item["id"]==$id){
-                        $pro["id"]=$item["id"];
-                        $pro["name"]=$item["name"];
-                        $pro["mota"]=$item["mota"];
-                        $pro["gia"]=$item["gia"];
-                        $pro["ncc"]=$item["ncc"];
-                        $title= "Sửa thông tin";
-                        include "views/addProduct.php";
-
-                    }
-                }
-
+                $pr = new Products();
+                $item= $pr->find($id);
+                $pro["id"]=$item["id"];
+                $pro["name"]=$item["name"];
+                $pro["mota"]=$item["mota"];
+                $pro["gia"]=$item["gia"];
+                $pro["ncc"]=$item["ncc"];
+                $title= "Sửa thông tin";
+                include "views/addProduct.php";
             }
 
         }
         function delete(){
             $id=$_POST["id"];
-            $sql="delete from products where id = $id";
-            if (insertorupdateDB($sql)){
+            $pr = new Products();
+            if ($pr->delete($id)){
                 header("location: /MVC/Lap");
-                echo "ez";
             }else{
                 echo "error";
             }
