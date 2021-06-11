@@ -14,6 +14,6 @@ switch ($router){
     case "luucate": $controller->luuCate();break;
     case "delete": $controller->delete();break;
     case "luupro": $controller->save();break;
-    case "addpro": $controller->add();break;
+    case "addpro": $controller->addoredit();break;
     default: $controller-> home();break;
 }

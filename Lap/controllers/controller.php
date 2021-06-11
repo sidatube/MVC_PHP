@@ -156,7 +156,7 @@ function checkid($id,$dssp){
 
 
         }
-        function add(){
+        function addoredit(){
 
             if (!isset($_POST["id"])){
                 $pro["id"]="";
