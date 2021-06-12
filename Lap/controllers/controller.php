@@ -2,26 +2,25 @@
 //include_once "database.php";
 include_once "models/Products.php";
 session_start();
-if (!isset($_SESSION["Cart"])){
-    $_SESSION["Cart"]=[];
-}
-function checkcart($sp,$cart){
-    foreach ($cart as $p){
-        if ($p["id"]==$sp["id"]){
-            return true;
-        }
+    if (!isset($_SESSION["Cart"])){
+        $_SESSION["Cart"]=[];
     }
-    return false;
-}
-function checkid($id,$dssp){
-    foreach ($dssp as $item){
-        if ($item["id"]== $id){
-            return true;
+    function checkcart($sp,$cart){
+        foreach ($cart as $p){
+            if ($p["id"]==$sp["id"]){
+                return true;
+            }
         }
-    }return false;
-}
+        return false;
+    }
+    function checkid($id,$dssp){
+        foreach ($dssp as $item){
+            if ($item["id"]== $id){
+                return true;
+            }
+        }return false;
+    }
     class Controller{
-
         function mycart(){
             $cart=$_SESSION["Cart"];
             if ($cart==[]){
@@ -69,19 +68,16 @@ function checkid($id,$dssp){
                         insertorupdateDB($sql_item);
                         echo "tạo đơn thành công";
                     }
-
                 }catch (Exception $e){
                     var_dump($e);
                 }
             }else{
                 echo "Không có sản phẩm trong giỏ hàng";
             }
-
         }
         function addToCart(){
             $cart=$_SESSION["Cart"];
             $id = $_POST["id"];
-
             $sql_txt=" select * from products where id =$id";
             $dssp= queryDB($sql_txt);
             if(count($dssp)>0){
@@ -101,11 +97,7 @@ function checkid($id,$dssp){
                 }else{
                 echo "Sản phẩm không tồn tại!";
             }
-
-
         }
-
-
         function home(){
             $pro = new Products();
             $dssp = $pro->all();
@@ -129,32 +121,6 @@ function checkid($id,$dssp){
                     echo "error-add";
                 }
             }
-//            if ( $id=$_POST["id"]==""){
-//                $name=$_POST["name"];
-//                $mota=$_POST["mota"];
-//                $gia=$_POST["gia"];
-//                $ncc=$_POST["ncc"];
-//                $sql="insert into products (name,mota,gia,ncc) values ('$name','$mota','$gia','$ncc')";
-//                if (insertorupdateDB($sql)){
-//                    header("location: /MVC/Lap");
-//                }else{
-//                    echo "error";
-//                }
-//            }else{
-//                $id=$_POST["id"];
-//                $name=$_POST["name"];
-//                $mota=$_POST["mota"];
-//                $gia=$_POST["gia"];
-//                $ncc=$_POST["ncc"];
-//                $sql_txt= "update products set name ='$name', gia=$gia, mota='$mota', ncc='$ncc' where id=$id";
-//                if (insertorupdateDB($sql_txt)){
-//                    header("location: /MVC/Lap");
-//                }else{
-//                    echo "error";
-//                }
-//            }
-
-
         }
         function addoredit(){
 
